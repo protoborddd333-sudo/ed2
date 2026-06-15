@@ -19,7 +19,7 @@ html_code = """
 
     body {
         margin: 0;
-        padding: 20px;
+        padding: 18px;
         font-family: Arial, Helvetica, sans-serif;
         background: #FFFFFF;
         color: #000000;
@@ -27,11 +27,12 @@ html_code = """
 
     .page {
         width: 100%;
-        min-height: 860px;
+        min-height: 900px;
         background: #FFFFFF;
         border-radius: 24px;
-        padding: 28px;
+        padding: 26px;
         border: 1px solid #DCEFF8;
+        overflow-x: auto;
     }
 
     .title {
@@ -49,11 +50,53 @@ html_code = """
         margin-bottom: 35px;
     }
 
-    .mindmap {
-        display: flex;
-        flex-direction: column;
+    .spider-body {
+        display: grid;
+        grid-template-columns: 1fr 340px 1fr;
         align-items: center;
-        gap: 18px;
+        gap: 22px;
+        width: 100%;
+        min-width: 1100px;
+    }
+
+    .center-zone {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .side {
+        display: none;
+        flex-direction: column;
+        gap: 42px;
+    }
+
+    .side.show {
+        display: flex;
+        animation: expandir 0.45s ease forwards;
+    }
+
+    .left-side {
+        align-items: flex-end;
+    }
+
+    .right-side {
+        align-items: flex-start;
+    }
+
+    .branch-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .left-row {
+        justify-content: flex-end;
+    }
+
+    .right-row {
+        justify-content: flex-start;
     }
 
     .node {
@@ -61,7 +104,7 @@ html_code = """
         border: 2px solid #01ACF1;
         color: #000000;
         border-radius: 18px;
-        padding: 18px 20px;
+        padding: 15px 17px;
         box-shadow: 0 8px 20px rgba(1, 172, 241, 0.12);
         transition: all 0.35s ease;
     }
@@ -72,40 +115,40 @@ html_code = """
     }
 
     .level-0 {
-        width: 570px;
+        width: 335px;
         text-align: center;
-        font-size: 21px;
+        font-size: 19px;
         font-weight: 800;
     }
 
     .level-1 {
-        width: 280px;
-        min-height: 130px;
-        font-size: 16px;
+        width: 255px;
+        min-height: 112px;
+        font-size: 15px;
     }
 
     .level-2 {
-        width: 245px;
-        font-size: 14px;
+        width: 230px;
+        font-size: 13.2px;
         border-width: 1.7px;
+        padding: 12px 13px;
     }
 
     body.is-expanded .level-0 {
-        width: 480px;
-        font-size: 18px;
-        padding: 14px 18px;
+        width: 305px;
+        font-size: 17px;
+        padding: 13px 15px;
     }
 
     body.deep-expanded .level-1 {
-        width: 250px;
-        font-size: 14px;
-        padding: 14px 15px;
+        width: 235px;
+        font-size: 13.5px;
+        padding: 12px 13px;
     }
 
     body.deep-expanded .level-2 {
-        width: 230px;
-        font-size: 13px;
-        padding: 13px 14px;
+        width: 215px;
+        font-size: 12.5px;
     }
 
     .node-header {
@@ -121,23 +164,23 @@ html_code = """
     }
 
     .node-text {
-        margin-top: 9px;
-        font-size: 13.5px;
-        line-height: 1.45;
+        margin-top: 8px;
+        font-size: 13px;
+        line-height: 1.38;
         color: #222222;
         font-weight: 400;
     }
 
     .toggle {
-        min-width: 31px;
-        height: 31px;
+        min-width: 30px;
+        height: 30px;
         border-radius: 50%;
         border: 2px solid #01ACF1;
         background: #FFFFFF;
         color: #000000;
         cursor: pointer;
         font-weight: 900;
-        font-size: 19px;
+        font-size: 18px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -149,49 +192,27 @@ html_code = """
         transform: scale(1.10);
     }
 
-    .branches {
-        width: 100%;
-        display: none;
-        justify-content: center;
-        gap: 22px;
-        align-items: flex-start;
-        opacity: 0;
-        transform: scale(0.92);
-        transition: all 0.40s ease;
-        margin-top: 5px;
+    .line {
+        height: 2px;
+        background: #01ACF1;
+        opacity: 0.75;
+        border-radius: 20px;
+        flex-shrink: 0;
     }
 
-    .branches.show {
-        display: flex;
-        opacity: 1;
-        transform: scale(1);
-        animation: expandir 0.45s ease forwards;
+    .line-main {
+        width: 65px;
     }
 
-    @keyframes expandir {
-        from {
-            opacity: 0;
-            transform: scale(0.90) translateY(-8px);
-        }
-        to {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-        }
-    }
-
-    .branch-column {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 13px;
+    .line-small {
+        width: 32px;
+        opacity: 0.60;
     }
 
     .subnodes {
         display: none;
         flex-direction: column;
-        align-items: center;
-        gap: 11px;
-        margin-top: 5px;
+        gap: 10px;
         opacity: 0;
         transform: scale(0.92);
         transition: all 0.35s ease;
@@ -204,22 +225,15 @@ html_code = """
         animation: expandir 0.35s ease forwards;
     }
 
-    .connector-main {
-        width: 2px;
-        height: 25px;
-        background: #01ACF1;
-        opacity: 0.75;
-        margin-top: -6px;
-        margin-bottom: -4px;
-    }
-
-    .connector-small {
-        width: 2px;
-        height: 15px;
-        background: #01ACF1;
-        opacity: 0.65;
-        margin-top: -3px;
-        margin-bottom: -3px;
+    @keyframes expandir {
+        from {
+            opacity: 0;
+            transform: scale(0.90);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
     }
 
     .tag {
@@ -239,24 +253,20 @@ html_code = """
         padding: 7px 9px;
         background: #F8FCFE;
         border-left: 3px solid #01ACF1;
-        font-size: 13px;
+        font-size: 12.3px;
         border-radius: 8px;
     }
 
     .footer {
-        margin-top: 35px;
+        margin-top: 38px;
         text-align: center;
         font-size: 12px;
         color: #444444;
     }
 
-    @media (max-width: 1150px) {
-        .branches.show {
-            flex-wrap: wrap;
-        }
-
-        .level-0 {
-            width: 90%;
+    @media (max-width: 1200px) {
+        .page {
+            overflow-x: auto;
         }
     }
 </style>
@@ -268,147 +278,142 @@ html_code = """
 
     <div class="title">Mapa Mental Interactivo</div>
     <div class="subtitle">
-        Ecuaciones Diferenciales Ordinarias aplicadas a la gestión de activos en una planta industrial
+        Ecuaciones Diferenciales Ordinarias aplicadas al mantenimiento industrial
     </div>
 
-    <div class="mindmap">
+    <div class="spider-body">
 
-        <div class="node level-0">
-            <div class="node-header">
-                <span class="node-title">
-                    Ecuaciones Diferenciales en el Mantenimiento Industrial
-                </span>
-                <button class="toggle" onclick="toggleSection('mainBranches', this)">+</button>
-            </div>
+        <div id="leftBranches" class="side left-side">
 
-            <div class="node-text">
-                Las ecuaciones diferenciales permiten representar cómo cambia una variable de un sistema industrial con respecto al tiempo. 
-                En mantenimiento ayudan a analizar temperatura, nivel de fluido, presión, velocidad de actuadores y comportamiento de equipos.
-            </div>
-        </div>
-
-        <div class="connector-main"></div>
-
-        <div id="mainBranches" class="branches">
-
-            <!-- RAMA 1 -->
-            <div class="branch-column">
-                <div class="node level-1">
-                    <div class="node-header">
-                        <span class="node-title">1. Fundamentos y Clasificación</span>
-                        <button class="toggle" onclick="toggleSection('rama1', this)">+</button>
-                    </div>
-
-                    <div class="node-text">
-                        Explica qué es una ecuación diferencial y cómo se clasifica técnicamente.
-                    </div>
-
-                    <span class="tag">Base teórica</span>
-                </div>
+            <div class="branch-row left-row">
 
                 <div id="rama1" class="subnodes">
-                    <div class="connector-small"></div>
-
                     <div class="node level-2">
                         <div class="node-title">Definición</div>
                         <div class="node-text">
-                            Una ecuación diferencial relaciona una función desconocida con una o más de sus derivadas.
-                            En mantenimiento se usa para estudiar cómo cambia una magnitud como temperatura, presión, nivel o velocidad con el tiempo.
+                            Relaciona una función desconocida con sus derivadas. Sirve para representar cambios de una variable respecto al tiempo.
                         </div>
                     </div>
 
                     <div class="node level-2">
                         <div class="node-title">Orden</div>
                         <div class="node-text">
-                            El orden se determina por la derivada más alta presente en la ecuación.
-                            Si aparece dy/dt, es de primer orden. Si aparece d²y/dt², es de segundo orden.
+                            Se define por la derivada más alta. Si aparece dy/dt es de primer orden; si aparece d²y/dt² es de segundo orden.
                         </div>
                     </div>
 
                     <div class="node level-2">
                         <div class="node-title">Linealidad</div>
                         <div class="node-text">
-                            Una ecuación diferencial es lineal cuando la variable dependiente y sus derivadas están elevadas al exponente 1.
-                            Además, no deben multiplicarse entre sí.
+                            Es lineal cuando la variable dependiente y sus derivadas están al exponente 1 y no se multiplican entre sí.
                         </div>
                     </div>
 
                     <div class="node level-2">
                         <div class="node-title">Tipo: EDO vs EDP</div>
                         <div class="node-text">
-                            Una EDO usa derivadas respecto a una sola variable independiente, normalmente el tiempo.
-                            Una EDP usa derivadas parciales respecto a dos o más variables independientes.
+                            La EDO depende de una sola variable independiente. La EDP depende de dos o más variables independientes.
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- RAMA 2 -->
-            <div class="branch-column">
+                <div class="line line-small"></div>
+
                 <div class="node level-1">
                     <div class="node-header">
-                        <span class="node-title">2. Herramientas de Resolución</span>
-                        <button class="toggle" onclick="toggleSection('rama2', this)">+</button>
+                        <span class="node-title">1. Fundamentos y Clasificación</span>
+                        <button class="toggle" onclick="toggleSection('rama1', this)">+</button>
                     </div>
-
                     <div class="node-text">
-                        Presenta métodos básicos usados para resolver ecuaciones diferenciales de primer orden.
+                        Permite identificar la estructura básica de una ecuación diferencial.
                     </div>
-
-                    <span class="tag">Métodos</span>
+                    <span class="tag">Base teórica</span>
                 </div>
 
-                <div id="rama2" class="subnodes">
-                    <div class="connector-small"></div>
+                <div class="line line-main"></div>
+            </div>
 
+            <div class="branch-row left-row">
+
+                <div id="rama2" class="subnodes">
                     <div class="node level-2">
                         <div class="node-title">Variables Separables</div>
                         <div class="node-text">
-                            Es un método donde se reorganiza la ecuación para dejar una variable en un lado y la otra variable en el otro lado.
-                            Luego se integran ambos lados para obtener la solución.
+                            Método que separa las variables en lados distintos de la ecuación para luego integrar.
                         </div>
                         <div class="formula">
-                            Forma general: dy/dx = f(x)g(y)
+                            dy/dx = f(x)g(y)
                         </div>
                     </div>
 
                     <div class="node level-2">
                         <div class="node-title">Factor Integrante</div>
                         <div class="node-text">
-                            Se aplica a EDOs lineales de primer orden. Consiste en multiplicar toda la ecuación por una función especial
-                            que permite convertirla en una derivada de producto y facilitar la integración.
+                            Se aplica a EDOs lineales de primer orden para convertir la ecuación en una derivada de producto.
                         </div>
                         <div class="formula">
-                            Forma lineal: y' + p(x)y = q(x)
+                            y' + p(x)y = q(x)
                         </div>
                     </div>
                 </div>
+
+                <div class="line line-small"></div>
+
+                <div class="node level-1">
+                    <div class="node-header">
+                        <span class="node-title">2. Herramientas de Resolución</span>
+                        <button class="toggle" onclick="toggleSection('rama2', this)">+</button>
+                    </div>
+                    <div class="node-text">
+                        Son métodos usados para resolver ecuaciones diferenciales de primer orden.
+                    </div>
+                    <span class="tag">Métodos</span>
+                </div>
+
+                <div class="line line-main"></div>
             </div>
 
-            <!-- RAMA 3 -->
-            <div class="branch-column">
+        </div>
+
+        <div class="center-zone">
+            <div class="node level-0">
+                <div class="node-header">
+                    <span class="node-title">
+                        Ecuaciones Diferenciales en el Mantenimiento Industrial
+                    </span>
+                    <button class="toggle" onclick="toggleMain(this)">+</button>
+                </div>
+
+                <div class="node-text">
+                    Modelan el cambio de variables como temperatura, presión, nivel o velocidad. Ayudan a diagnosticar y predecir el comportamiento de equipos.
+                </div>
+            </div>
+        </div>
+
+        <div id="rightBranches" class="side right-side">
+
+            <div class="branch-row right-row">
+
+                <div class="line line-main"></div>
+
                 <div class="node level-1">
                     <div class="node-header">
                         <span class="node-title">3. Modelos de Procesos</span>
                         <button class="toggle" onclick="toggleSection('rama3', this)">+</button>
                     </div>
-
                     <div class="node-text">
-                        Relaciona las EDO con procesos reales presentes en una planta industrial.
+                        Aplican las EDO al análisis de procesos reales en planta.
                     </div>
-
                     <span class="tag">Aplicación</span>
                 </div>
 
-                <div id="rama3" class="subnodes">
-                    <div class="connector-small"></div>
+                <div class="line line-small"></div>
 
+                <div id="rama3" class="subnodes">
                     <div class="node level-2">
                         <div class="node-title">Termicidad: Ley de Newton</div>
                         <div class="node-text">
-                            La Ley de Newton del enfriamiento modela cómo cambia la temperatura de un cuerpo según la diferencia
-                            entre su temperatura y la temperatura del ambiente.
-                            Se aplica en el enfriamiento de motores, rodamientos y componentes sometidos a calentamiento.
+                            Describe el enfriamiento o calentamiento según la diferencia entre la temperatura del cuerpo y el ambiente.
                         </div>
                         <div class="formula">
                             dT/dt = -k(T - Ta)
@@ -418,8 +423,7 @@ html_code = """
                     <div class="node level-2">
                         <div class="node-title">Fluidos: Ley de Torricelli</div>
                         <div class="node-text">
-                            La Ley de Torricelli permite modelar el vaciado de un tanque según la altura del fluido.
-                            En planta se puede aplicar a tanques de lubricante, agua o productos químicos.
+                            Modela la velocidad de salida de un fluido y el vaciado de tanques según la altura del líquido.
                         </div>
                         <div class="formula">
                             v = √(2gh)
@@ -429,68 +433,82 @@ html_code = """
                     <div class="node level-2">
                         <div class="node-title">Sistemas: Actuadores Hidráulicos</div>
                         <div class="node-text">
-                            La dinámica de actuadores hidráulicos permite analizar cómo cambia la posición, velocidad o presión de un actuador con el tiempo.
-                            Sirve para estudiar la respuesta del sistema ante una entrada, una carga o una variación de presión.
+                            Representa la respuesta de posición, presión o velocidad de un actuador frente a una entrada del sistema.
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- RAMA 4 -->
-            <div class="branch-column">
+            <div class="branch-row right-row">
+
+                <div class="line line-main"></div>
+
                 <div class="node level-1">
                     <div class="node-header">
                         <span class="node-title">4. Valor para el Mantenimiento</span>
                         <button class="toggle" onclick="toggleSection('rama4', this)">+</button>
                     </div>
-
                     <div class="node-text">
-                        Muestra cómo los modelos matemáticos ayudan al diagnóstico y a la prevención de fallas.
+                        Convierte los modelos matemáticos en criterios de diagnóstico y prevención.
                     </div>
-
                     <span class="tag">Diagnóstico</span>
                 </div>
 
-                <div id="rama4" class="subnodes">
-                    <div class="connector-small"></div>
+                <div class="line line-small"></div>
 
+                <div id="rama4" class="subnodes">
                     <div class="node level-2">
                         <div class="node-title">Constante de tiempo τ</div>
                         <div class="node-text">
-                            La constante de tiempo indica qué tan rápido responde un sistema ante un cambio.
-                            Si τ aumenta, el sistema responde más lento, lo que puede indicar mayor fricción, desgaste,
-                            suciedad, pérdida de eficiencia o degradación del fluido.
+                            Indica la rapidez de respuesta del sistema. Si aumenta, puede señalar fricción, desgaste o degradación del fluido.
                         </div>
                     </div>
 
                     <div class="node level-2">
                         <div class="node-title">Predicción de estados futuros</div>
                         <div class="node-text">
-                            Las EDO permiten estimar cómo se comportará un equipo después de cierto tiempo.
-                            Por ejemplo, qué temperatura alcanzará un motor o cuánto tardará en vaciarse un tanque.
+                            Permite estimar el comportamiento posterior de una variable, como temperatura, presión o nivel.
                         </div>
                     </div>
 
                     <div class="node level-2">
-                        <div class="node-title">Toma de decisiones preventivas</div>
+                        <div class="node-title">Decisiones preventivas</div>
                         <div class="node-text">
-                            Con los parámetros matemáticos se puede decidir cuándo inspeccionar, lubricar,
-                            ajustar o reemplazar un componente antes de que ocurra una falla.
+                            Ayuda a definir cuándo inspeccionar, lubricar, ajustar o reemplazar antes de que ocurra una falla.
                         </div>
                     </div>
                 </div>
             </div>
 
         </div>
+
     </div>
 
     <div class="footer">
-        Mapa mental elaborado para relacionar teoría de EDO con mantenimiento industrial y gestión de activos.
+        Mapa mental: teoría de EDO aplicada al mantenimiento industrial y gestión de activos.
     </div>
 
 </div>
 
 <script>
+    function toggleMain(button) {
+        const left = document.getElementById("leftBranches");
+        const right = document.getElementById("rightBranches");
+
+        if (left.classList.contains("show")) {
+            left.classList.remove("show");
+            right.classList.remove("show");
+            button.innerText = "+";
+            cerrarRamas();
+        } else {
+            left.classList.add("show");
+            right.classList.add("show");
+            button.innerText = "−";
+        }
+
+        updateBodyState();
+    }
+
     function toggleSection(id, button) {
         const section = document.getElementById(id);
 
@@ -505,11 +523,24 @@ html_code = """
         updateBodyState();
     }
 
+    function cerrarRamas() {
+        const subnodes = document.querySelectorAll(".subnodes");
+        const buttons = document.querySelectorAll(".level-1 .toggle");
+
+        subnodes.forEach(function(item) {
+            item.classList.remove("show");
+        });
+
+        buttons.forEach(function(btn) {
+            btn.innerText = "+";
+        });
+    }
+
     function updateBodyState() {
-        const mainBranches = document.getElementById("mainBranches");
+        const left = document.getElementById("leftBranches");
         const openSubnodes = document.querySelectorAll(".subnodes.show");
 
-        if (mainBranches.classList.contains("show")) {
+        if (left.classList.contains("show")) {
             document.body.classList.add("is-expanded");
         } else {
             document.body.classList.remove("is-expanded");
@@ -539,4 +570,4 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-components.html(html_code, height=950, scrolling=True)
+components.html(html_code, height=980, scrolling=True)
