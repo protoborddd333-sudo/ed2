@@ -48,8 +48,8 @@ html_code = """
         position: absolute;
         left: 50%;
         top: 50%;
-        width: 1400px;
-        height: 700px;
+        width: 1200px;
+        height: 720px;
         transform: translate(-50%, -50%) scale(var(--fit-scale, 1));
         transform-origin: center center;
         background: #FFFFFF;
@@ -60,7 +60,7 @@ html_code = """
         left: 0;
         top: 0;
         width: 1200px;
-        height: 700px;
+        height: 720px;
         z-index: 1;
         overflow: visible;
     }
@@ -78,7 +78,7 @@ html_code = """
 
     .center-node {
         left: 475px;
-        top: 300px;
+        top: 305px;
         width: 250px;
         min-height: 100px;
         border-width: 3px;
@@ -152,30 +152,30 @@ html_code = """
     }
 
     /* Bloques principales */
-    .main-1 { left: 290px; top: 115px; }
-    .main-2 { left: 290px; top: 500px; }
-    .main-3 { left: 700px; top: 115px; }
-    .main-4 { left: 700px; top: 500px; }
+    .main-1 { left: 290px; top: 120px; }
+    .main-2 { left: 290px; top: 510px; }
+    .main-3 { left: 700px; top: 120px; }
+    .main-4 { left: 700px; top: 510px; }
 
     /* Subbloques izquierda superior */
-    .sub-1a { left: 40px; top: 55px; }
+    .sub-1a { left: 40px; top: 35px; }
     .sub-1b { left: 40px; top: 125px; }
-    .sub-1c { left: 40px; top: 195px; }
-    .sub-1d { left: 40px; top: 265px; }
+    .sub-1c { left: 40px; top: 215px; }
+    .sub-1d { left: 40px; top: 305px; }
 
     /* Subbloques izquierda inferior */
-    .sub-2a { left: 40px; top: 455px; min-height: 78px; }
-    .sub-2b { left: 40px; top: 550px; min-height: 78px; }
+    .sub-2a { left: 40px; top: 470px; min-height: 78px; }
+    .sub-2b { left: 40px; top: 575px; min-height: 78px; }
 
     /* Subbloques derecha superior */
-    .sub-3a { left: 955px; top: 55px; min-height: 76px; }
+    .sub-3a { left: 955px; top: 40px; min-height: 76px; }
     .sub-3b { left: 955px; top: 145px; min-height: 76px; }
-    .sub-3c { left: 955px; top: 235px; min-height: 70px; }
+    .sub-3c { left: 955px; top: 250px; min-height: 70px; }
 
     /* Subbloques derecha inferior */
-    .sub-4a { left: 955px; top: 455px; min-height: 70px; }
-    .sub-4b { left: 955px; top: 535px; min-height: 66px; }
-    .sub-4c { left: 955px; top: 610px; min-height: 66px; }
+    .sub-4a { left: 955px; top: 470px; min-height: 70px; }
+    .sub-4b { left: 955px; top: 555px; min-height: 66px; }
+    .sub-4c { left: 955px; top: 635px; min-height: 66px; }
 </style>
 </head>
 
@@ -185,52 +185,51 @@ html_code = """
     <div class="map-viewport">
         <div class="scale-wrap">
 
-            <!-- Líneas de conexión -->
-            <svg class="connections" viewBox="0 0 1200 700" preserveAspectRatio="none">
+            <svg class="connections" viewBox="0 0 1200 720" preserveAspectRatio="none">
 
-                <!-- Conexión del núcleo a bloques principales -->
-                <path d="M475 350 L425 350 L425 161 L500 161" 
+                <!-- Núcleo a bloques principales -->
+                <path d="M475 355 L425 355 L425 166 L500 166" 
                       fill="none" stroke="#01ACF1" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
 
-                <path d="M475 350 L425 350 L425 546 L500 546" 
+                <path d="M475 355 L425 355 L425 556 L500 556" 
                       fill="none" stroke="#01ACF1" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
 
-                <path d="M725 350 L775 350 L775 161 L700 161" 
+                <path d="M725 355 L775 355 L775 166 L700 166" 
                       fill="none" stroke="#01ACF1" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
 
-                <path d="M725 350 L775 350 L775 546 L700 546" 
+                <path d="M725 355 L775 355 L775 556 L700 556" 
                       fill="none" stroke="#01ACF1" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
 
                 <!-- Rama 1 a subbloques -->
-                <path d="M290 161 L260 161 L260 84 L245 84" 
+                <path d="M290 166 L260 166 L260 64 L245 64" 
                       fill="none" stroke="#01ACF1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M260 161 L245 154" 
+                <path d="M260 166 L245 154" 
                       fill="none" stroke="#01ACF1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M260 161 L260 224 L245 224" 
+                <path d="M260 166 L260 244 L245 244" 
                       fill="none" stroke="#01ACF1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M260 224 L260 294 L245 294" 
+                <path d="M260 244 L260 334 L245 334" 
                       fill="none" stroke="#01ACF1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
 
                 <!-- Rama 2 a subbloques -->
-                <path d="M290 546 L260 546 L260 494 L245 494" 
+                <path d="M290 556 L260 556 L260 509 L245 509" 
                       fill="none" stroke="#01ACF1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M260 546 L260 589 L245 589" 
+                <path d="M260 556 L260 614 L245 614" 
                       fill="none" stroke="#01ACF1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
 
                 <!-- Rama 3 a subbloques -->
-                <path d="M910 161 L935 161 L935 93 L955 93" 
+                <path d="M910 166 L935 166 L935 78 L955 78" 
                       fill="none" stroke="#01ACF1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M935 161 L955 183" 
+                <path d="M935 166 L955 183" 
                       fill="none" stroke="#01ACF1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M935 161 L935 270 L955 270" 
+                <path d="M935 166 L935 285 L955 285" 
                       fill="none" stroke="#01ACF1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
 
                 <!-- Rama 4 a subbloques -->
-                <path d="M910 546 L935 546 L935 490 L955 490" 
+                <path d="M910 556 L935 556 L935 505 L955 505" 
                       fill="none" stroke="#01ACF1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M935 546 L955 568" 
+                <path d="M935 556 L955 588" 
                       fill="none" stroke="#01ACF1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M935 546 L935 643 L955 643" 
+                <path d="M935 556 L935 668 L955 668" 
                       fill="none" stroke="#01ACF1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
 
             </svg>
@@ -379,7 +378,7 @@ html_code = """
         const wrap = document.querySelector(".scale-wrap");
 
         const canvasWidth = 1200;
-        const canvasHeight = 700;
+        const canvasHeight = 720;
 
         const scaleX = viewport.clientWidth / canvasWidth;
         const scaleY = viewport.clientHeight / canvasHeight;
