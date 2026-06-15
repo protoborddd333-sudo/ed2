@@ -48,7 +48,7 @@ html_code = """
         position: absolute;
         left: 50%;
         top: 50%;
-        width: 1200px;
+        width: 1320px;
         height: 700px;
         transform: translate(-50%, -50%) scale(var(--fit-scale, 1));
         transform-origin: center center;
