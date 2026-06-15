@@ -2,7 +2,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 st.set_page_config(
-    page_title="Mapa Mental EDO - Mantenimiento Industrial",
+    page_title="Mapa Mental EDO",
     layout="wide"
 )
 
@@ -30,33 +30,16 @@ html_code = """
 
     .page {
         width: 100%;
-        height: 850px;
+        height: 760px;
         background: #FFFFFF;
-        border: 1px solid #DCEFF8;
-        border-radius: 22px;
-        padding: 18px;
         overflow: hidden;
-    }
-
-    .title {
-        text-align: center;
-        font-size: 28px;
-        font-weight: 800;
-        color: #000000;
-        margin-bottom: 5px;
-    }
-
-    .subtitle {
-        text-align: center;
-        font-size: 14px;
-        color: #333333;
-        margin-bottom: 8px;
+        position: relative;
     }
 
     .map-viewport {
         position: relative;
         width: 100%;
-        height: 735px;
+        height: 760px;
         overflow: hidden;
     }
 
@@ -64,7 +47,7 @@ html_code = """
         position: absolute;
         left: 50%;
         top: 50%;
-        width: 1180px;
+        width: 1120px;
         height: 650px;
         transform: translate(-50%, -50%) scale(var(--fit-scale, 1));
         transform-origin: center center;
@@ -74,184 +57,31 @@ html_code = """
         background: #FFFFFF;
         border: 2px solid #01ACF1;
         color: #000000;
-        border-radius: 17px;
-        padding: 13px 14px;
-        box-shadow: 0 7px 18px rgba(1, 172, 241, 0.12);
-        transition: all 0.30s ease;
+        border-radius: 15px;
+        padding: 10px 11px;
+        box-shadow: 0 6px 16px rgba(1, 172, 241, 0.10);
+        transition: all 0.25s ease;
     }
 
     .node:hover {
         transform: translateY(-2px);
-        box-shadow: 0 10px 22px rgba(1, 172, 241, 0.20);
+        box-shadow: 0 9px 20px rgba(1, 172, 241, 0.18);
     }
 
-    .level-0 {
+    .center-node {
         position: absolute;
         left: 50%;
         top: 50%;
-        width: 285px;
+        width: 245px;
         transform: translate(-50%, -50%);
         text-align: center;
-        font-size: 17px;
+        font-size: 14px;
         font-weight: 800;
         z-index: 10;
     }
 
-    .level-0:hover {
+    .center-node:hover {
         transform: translate(-50%, -52%);
-    }
-
-    .level-1 {
-        width: 210px;
-        min-height: 98px;
-        font-size: 14px;
-    }
-
-    .level-2 {
-        width: 185px;
-        font-size: 12.4px;
-        border-width: 1.6px;
-        padding: 10px 11px;
-    }
-
-    body.deep-expanded .level-0 {
-        width: 260px;
-        font-size: 15.5px;
-        padding: 11px 12px;
-    }
-
-    body.deep-expanded .level-1 {
-        width: 195px;
-        font-size: 13px;
-        padding: 11px 12px;
-    }
-
-    body.deep-expanded .level-2 {
-        width: 170px;
-        font-size: 11.7px;
-        padding: 9px 10px;
-    }
-
-    body.very-deep .level-0 {
-        width: 245px;
-        font-size: 14.5px;
-    }
-
-    body.very-deep .level-1 {
-        width: 180px;
-        font-size: 12px;
-    }
-
-    body.very-deep .level-2 {
-        width: 158px;
-        font-size: 11px;
-    }
-
-    .node-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 8px;
-    }
-
-    .node-title {
-        font-weight: 800;
-        line-height: 1.20;
-    }
-
-    .node-text {
-        margin-top: 7px;
-        font-size: 12.5px;
-        line-height: 1.32;
-        color: #222222;
-        font-weight: 400;
-    }
-
-    body.deep-expanded .node-text {
-        font-size: 11.4px;
-        line-height: 1.28;
-    }
-
-    body.very-deep .node-text {
-        font-size: 10.8px;
-        line-height: 1.25;
-    }
-
-    .toggle {
-        min-width: 27px;
-        height: 27px;
-        border-radius: 50%;
-        border: 2px solid #01ACF1;
-        background: #FFFFFF;
-        color: #000000;
-        cursor: pointer;
-        font-weight: 900;
-        font-size: 17px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.25s ease;
-    }
-
-    .toggle:hover {
-        background: #EAF8FE;
-        transform: scale(1.08);
-    }
-
-    .tag {
-        display: inline-block;
-        background: #F0FAFE;
-        border: 1px solid #BDEBFC;
-        border-radius: 50px;
-        padding: 3px 8px;
-        margin-top: 7px;
-        font-size: 11px;
-        font-weight: 700;
-        color: #000000;
-    }
-
-    .formula {
-        margin-top: 6px;
-        padding: 6px 7px;
-        background: #F8FCFE;
-        border-left: 3px solid #01ACF1;
-        font-size: 11.5px;
-        border-radius: 7px;
-    }
-
-    body.very-deep .formula {
-        font-size: 10.5px;
-        padding: 5px 6px;
-    }
-
-    .line {
-        height: 2px;
-        background: #01ACF1;
-        opacity: 0.75;
-        border-radius: 20px;
-        flex-shrink: 0;
-    }
-
-    .line-main {
-        width: 42px;
-    }
-
-    .line-sub {
-        width: 24px;
-        opacity: 0.60;
-        display: none;
-    }
-
-    .branch.sub-open .line-sub {
-        display: block;
-    }
-
-    body.very-deep .line-main {
-        width: 30px;
-    }
-
-    body.very-deep .line-sub {
-        width: 18px;
     }
 
     .branch {
@@ -266,61 +96,188 @@ html_code = """
     .branch.show {
         display: flex;
         opacity: 1;
-        transform: scale(1);
         animation: expandir 0.35s ease forwards;
     }
 
     .rama1 {
-        left: 18px;
-        top: 30px;
+        left: 70px;
+        top: 45px;
     }
 
     .rama2 {
-        left: 18px;
+        left: 105px;
         top: 420px;
     }
 
     .rama3 {
-        left: 730px;
+        left: 705px;
         top: 55px;
     }
 
     .rama4 {
-        left: 730px;
+        left: 690px;
         top: 405px;
+    }
+
+    .branch-main {
+        width: 205px;
+        min-height: 82px;
+        font-size: 12px;
     }
 
     .subnodes {
         display: none;
         flex-direction: column;
-        gap: 8px;
+        gap: 7px;
         opacity: 0;
-        transform: scale(0.90);
+        transform: scale(0.92);
     }
 
     .subnodes.show {
         display: flex;
         opacity: 1;
-        transform: scale(1);
-        animation: expandir 0.32s ease forwards;
+        animation: expandir 0.30s ease forwards;
+    }
+
+    .mini-node {
+        width: 170px;
+        font-size: 11px;
+        padding: 8px 9px;
+        border-width: 1.6px;
+    }
+
+    .mini-detail {
+        display: none;
+        margin-top: 6px;
+        font-size: 10.5px;
+        line-height: 1.25;
+        color: #222222;
+        animation: expandir 0.25s ease forwards;
+    }
+
+    .mini-detail.show {
+        display: block;
+    }
+
+    .node-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 6px;
+    }
+
+    .node-title {
+        font-weight: 800;
+        line-height: 1.18;
+    }
+
+    .node-text {
+        margin-top: 6px;
+        font-size: 10.8px;
+        line-height: 1.25;
+        color: #222222;
+        font-weight: 400;
+    }
+
+    .toggle {
+        min-width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        border: 2px solid #01ACF1;
+        background: #FFFFFF;
+        color: #000000;
+        cursor: pointer;
+        font-weight: 900;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.20s ease;
+    }
+
+    .toggle:hover {
+        background: #EAF8FE;
+        transform: scale(1.08);
+    }
+
+    .mini-toggle {
+        min-width: 20px;
+        height: 20px;
+        font-size: 12px;
+        border-width: 1.6px;
+    }
+
+    .tag {
+        display: inline-block;
+        background: #F0FAFE;
+        border: 1px solid #BDEBFC;
+        border-radius: 50px;
+        padding: 3px 7px;
+        margin-top: 6px;
+        font-size: 9.5px;
+        font-weight: 700;
+        color: #000000;
+    }
+
+    .formula {
+        margin-top: 5px;
+        padding: 5px 6px;
+        background: #F8FCFE;
+        border-left: 3px solid #01ACF1;
+        font-size: 10px;
+        border-radius: 6px;
+    }
+
+    body.deep-expanded .center-node {
+        width: 225px;
+        font-size: 12.8px;
+        padding: 9px 10px;
+    }
+
+    body.deep-expanded .branch-main {
+        width: 185px;
+        font-size: 11px;
+        min-height: 74px;
+    }
+
+    body.deep-expanded .mini-node {
+        width: 155px;
+        font-size: 10px;
+        padding: 7px 8px;
+    }
+
+    body.deep-expanded .node-text {
+        font-size: 9.8px;
+    }
+
+    body.very-deep .center-node {
+        width: 210px;
+        font-size: 12px;
+    }
+
+    body.very-deep .branch-main {
+        width: 172px;
+        font-size: 10px;
+    }
+
+    body.very-deep .mini-node {
+        width: 145px;
+        font-size: 9.4px;
+    }
+
+    body.very-deep .mini-detail {
+        font-size: 9.2px;
     }
 
     @keyframes expandir {
         from {
             opacity: 0;
-            transform: scale(0.88);
+            transform: scale(0.90);
         }
         to {
             opacity: 1;
             transform: scale(1);
         }
-    }
-
-    .footer {
-        text-align: center;
-        font-size: 11px;
-        color: #444444;
-        margin-top: 2px;
     }
 </style>
 </head>
@@ -328,17 +285,11 @@ html_code = """
 <body>
 
 <div class="page">
-
-    <div class="title">Mapa Mental Interactivo</div>
-    <div class="subtitle">
-        Ecuaciones Diferenciales Ordinarias aplicadas al mantenimiento industrial
-    </div>
-
     <div class="map-viewport">
         <div class="scale-wrap">
 
             <!-- NÚCLEO CENTRAL -->
-            <div class="node level-0">
+            <div class="node center-node">
                 <div class="node-header">
                     <span class="node-title">
                         Ecuaciones Diferenciales en el Mantenimiento Industrial
@@ -347,45 +298,58 @@ html_code = """
                 </div>
 
                 <div class="node-text">
-                    Modelan cambios de variables como temperatura, presión, nivel o velocidad. Ayudan al diagnóstico y predicción del estado de equipos.
+                    Modelan cambios de temperatura, presión, nivel o velocidad para diagnosticar y predecir el comportamiento de equipos.
                 </div>
             </div>
 
-            <!-- RAMA 1 IZQUIERDA SUPERIOR -->
+            <!-- RAMA 1 -->
             <div class="branch rama1 left-branch">
+
                 <div id="rama1" class="subnodes">
-                    <div class="node level-2">
-                        <div class="node-title">Definición</div>
-                        <div class="node-text">
+
+                    <div class="node mini-node">
+                        <div class="node-header">
+                            <span class="node-title">Definición</span>
+                            <button class="toggle mini-toggle" onclick="toggleMini('definicion', this)">+</button>
+                        </div>
+                        <div id="definicion" class="mini-detail">
                             Relación entre una función desconocida y sus derivadas.
                         </div>
                     </div>
 
-                    <div class="node level-2">
-                        <div class="node-title">Orden</div>
-                        <div class="node-text">
-                            Lo define la derivada más alta: dy/dt es primer orden, d²y/dt² es segundo orden.
+                    <div class="node mini-node">
+                        <div class="node-header">
+                            <span class="node-title">Orden</span>
+                            <button class="toggle mini-toggle" onclick="toggleMini('orden', this)">+</button>
+                        </div>
+                        <div id="orden" class="mini-detail">
+                            Lo define la derivada más alta: dy/dt es primer orden y d²y/dt² es segundo orden.
                         </div>
                     </div>
 
-                    <div class="node level-2">
-                        <div class="node-title">Linealidad</div>
-                        <div class="node-text">
+                    <div class="node mini-node">
+                        <div class="node-header">
+                            <span class="node-title">Linealidad</span>
+                            <button class="toggle mini-toggle" onclick="toggleMini('linealidad', this)">+</button>
+                        </div>
+                        <div id="linealidad" class="mini-detail">
                             Es lineal si la variable dependiente y sus derivadas están al exponente 1.
                         </div>
                     </div>
 
-                    <div class="node level-2">
-                        <div class="node-title">Tipo</div>
-                        <div class="node-text">
+                    <div class="node mini-node">
+                        <div class="node-header">
+                            <span class="node-title">Tipo</span>
+                            <button class="toggle mini-toggle" onclick="toggleMini('tipo', this)">+</button>
+                        </div>
+                        <div id="tipo" class="mini-detail">
                             EDO: una variable independiente. EDP: dos o más variables independientes.
                         </div>
                     </div>
+
                 </div>
 
-                <div class="line line-sub"></div>
-
-                <div class="node level-1">
+                <div class="node branch-main">
                     <div class="node-header">
                         <span class="node-title">1. Fundamentos y Clasificación</span>
                         <button class="toggle" onclick="toggleSection('rama1', this)">+</button>
@@ -395,33 +359,38 @@ html_code = """
                     </div>
                     <span class="tag">Base teórica</span>
                 </div>
-
-                <div class="line line-main"></div>
             </div>
 
-            <!-- RAMA 2 IZQUIERDA INFERIOR -->
+            <!-- RAMA 2 -->
             <div class="branch rama2 left-branch">
+
                 <div id="rama2" class="subnodes">
-                    <div class="node level-2">
-                        <div class="node-title">Variables Separables</div>
-                        <div class="node-text">
-                            Se separan las variables en lados distintos y luego se integran.
+
+                    <div class="node mini-node">
+                        <div class="node-header">
+                            <span class="node-title">Variables Separables</span>
+                            <button class="toggle mini-toggle" onclick="toggleMini('separables', this)">+</button>
                         </div>
-                        <div class="formula">dy/dx = f(x)g(y)</div>
+                        <div id="separables" class="mini-detail">
+                            Se separan las variables en lados distintos y luego se integran.
+                            <div class="formula">dy/dx = f(x)g(y)</div>
+                        </div>
                     </div>
 
-                    <div class="node level-2">
-                        <div class="node-title">Factor Integrante</div>
-                        <div class="node-text">
-                            Convierte una EDO lineal en una derivada de producto.
+                    <div class="node mini-node">
+                        <div class="node-header">
+                            <span class="node-title">Factor Integrante</span>
+                            <button class="toggle mini-toggle" onclick="toggleMini('factor', this)">+</button>
                         </div>
-                        <div class="formula">y' + p(x)y = q(x)</div>
+                        <div id="factor" class="mini-detail">
+                            Se aplica a EDOs lineales de primer orden para facilitar la integración del producto.
+                            <div class="formula">y' + p(x)y = q(x)</div>
+                        </div>
                     </div>
+
                 </div>
 
-                <div class="line line-sub"></div>
-
-                <div class="node level-1">
+                <div class="node branch-main">
                     <div class="node-header">
                         <span class="node-title">2. Herramientas de Resolución</span>
                         <button class="toggle" onclick="toggleSection('rama2', this)">+</button>
@@ -431,101 +400,110 @@ html_code = """
                     </div>
                     <span class="tag">Métodos</span>
                 </div>
-
-                <div class="line line-main"></div>
             </div>
 
-            <!-- RAMA 3 DERECHA SUPERIOR -->
+            <!-- RAMA 3 -->
             <div class="branch rama3 right-branch">
-                <div class="line line-main"></div>
 
-                <div class="node level-1">
+                <div class="node branch-main">
                     <div class="node-header">
                         <span class="node-title">3. Modelos de Procesos</span>
                         <button class="toggle" onclick="toggleSection('rama3', this)">+</button>
                     </div>
                     <div class="node-text">
-                        Aplican las EDO al análisis de procesos de planta.
+                        Aplican las EDO al análisis de procesos reales en planta.
                     </div>
                     <span class="tag">Aplicación</span>
                 </div>
 
-                <div class="line line-sub"></div>
-
                 <div id="rama3" class="subnodes">
-                    <div class="node level-2">
-                        <div class="node-title">Termicidad</div>
-                        <div class="node-text">
+
+                    <div class="node mini-node">
+                        <div class="node-header">
+                            <span class="node-title">Termicidad</span>
+                            <button class="toggle mini-toggle" onclick="toggleMini('termicidad', this)">+</button>
+                        </div>
+                        <div id="termicidad" class="mini-detail">
                             Ley de Newton: enfriamiento de motores y rodamientos.
+                            <div class="formula">dT/dt = -k(T - Ta)</div>
                         </div>
-                        <div class="formula">dT/dt = -k(T - Ta)</div>
                     </div>
 
-                    <div class="node level-2">
-                        <div class="node-title">Fluidos</div>
-                        <div class="node-text">
-                            Ley de Torricelli: vaciado de tanques según la altura del fluido.
+                    <div class="node mini-node">
+                        <div class="node-header">
+                            <span class="node-title">Fluidos</span>
+                            <button class="toggle mini-toggle" onclick="toggleMini('fluidos', this)">+</button>
                         </div>
-                        <div class="formula">v = √(2gh)</div>
+                        <div id="fluidos" class="mini-detail">
+                            Ley de Torricelli: vaciado de tanques de lubricante o químicos.
+                            <div class="formula">v = √(2gh)</div>
+                        </div>
                     </div>
 
-                    <div class="node level-2">
-                        <div class="node-title">Sistemas</div>
-                        <div class="node-text">
+                    <div class="node mini-node">
+                        <div class="node-header">
+                            <span class="node-title">Sistemas</span>
+                            <button class="toggle mini-toggle" onclick="toggleMini('sistemas', this)">+</button>
+                        </div>
+                        <div id="sistemas" class="mini-detail">
                             Dinámica de actuadores hidráulicos: presión, velocidad y posición.
                         </div>
                     </div>
+
                 </div>
             </div>
 
-            <!-- RAMA 4 DERECHA INFERIOR -->
+            <!-- RAMA 4 -->
             <div class="branch rama4 right-branch">
-                <div class="line line-main"></div>
 
-                <div class="node level-1">
+                <div class="node branch-main">
                     <div class="node-header">
                         <span class="node-title">4. Valor para el Mantenimiento</span>
                         <button class="toggle" onclick="toggleSection('rama4', this)">+</button>
                     </div>
                     <div class="node-text">
-                        Usa modelos matemáticos para diagnosticar y prevenir fallas.
+                        Convierte modelos matemáticos en diagnóstico y prevención.
                     </div>
                     <span class="tag">Diagnóstico</span>
                 </div>
 
-                <div class="line line-sub"></div>
-
                 <div id="rama4" class="subnodes">
-                    <div class="node level-2">
-                        <div class="node-title">Constante de tiempo τ</div>
-                        <div class="node-text">
+
+                    <div class="node mini-node">
+                        <div class="node-header">
+                            <span class="node-title">Constante de tiempo τ</span>
+                            <button class="toggle mini-toggle" onclick="toggleMini('tau', this)">+</button>
+                        </div>
+                        <div id="tau" class="mini-detail">
                             Indica rapidez de respuesta. Si aumenta, puede existir fricción o degradación del fluido.
                         </div>
                     </div>
 
-                    <div class="node level-2">
-                        <div class="node-title">Predicción</div>
-                        <div class="node-text">
+                    <div class="node mini-node">
+                        <div class="node-header">
+                            <span class="node-title">Predicción</span>
+                            <button class="toggle mini-toggle" onclick="toggleMini('prediccion', this)">+</button>
+                        </div>
+                        <div id="prediccion" class="mini-detail">
                             Estima estados futuros de temperatura, presión, nivel o velocidad.
                         </div>
                     </div>
 
-                    <div class="node level-2">
-                        <div class="node-title">Decisiones preventivas</div>
-                        <div class="node-text">
-                            Permite programar inspección, lubricación, ajuste o reemplazo.
+                    <div class="node mini-node">
+                        <div class="node-header">
+                            <span class="node-title">Decisiones preventivas</span>
+                            <button class="toggle mini-toggle" onclick="toggleMini('decisiones', this)">+</button>
+                        </div>
+                        <div id="decisiones" class="mini-detail">
+                            Permite programar inspección, lubricación, ajuste o reemplazo antes de la falla.
                         </div>
                     </div>
+
                 </div>
             </div>
 
         </div>
     </div>
-
-    <div class="footer">
-        Mapa mental: teoría de EDO aplicada al mantenimiento industrial y gestión de activos.
-    </div>
-
 </div>
 
 <script>
@@ -538,10 +516,9 @@ html_code = """
 
             branches.forEach(function(branch) {
                 branch.classList.remove("show");
-                branch.classList.remove("sub-open");
             });
 
-            cerrarSubramas();
+            cerrarTodo();
 
         } else {
             document.body.classList.add("map-open");
@@ -557,26 +534,42 @@ html_code = """
 
     function toggleSection(id, button) {
         const section = document.getElementById(id);
-        const branch = button.closest(".branch");
 
         if (section.classList.contains("show")) {
             section.classList.remove("show");
-            branch.classList.remove("sub-open");
             button.innerText = "+";
         } else {
             section.classList.add("show");
-            branch.classList.add("sub-open");
             button.innerText = "−";
         }
 
         updateBodyState();
     }
 
-    function cerrarSubramas() {
+    function toggleMini(id, button) {
+        const detail = document.getElementById(id);
+
+        if (detail.classList.contains("show")) {
+            detail.classList.remove("show");
+            button.innerText = "+";
+        } else {
+            detail.classList.add("show");
+            button.innerText = "−";
+        }
+
+        updateBodyState();
+    }
+
+    function cerrarTodo() {
         const subnodes = document.querySelectorAll(".subnodes");
-        const buttons = document.querySelectorAll(".level-1 .toggle");
+        const details = document.querySelectorAll(".mini-detail");
+        const buttons = document.querySelectorAll(".branch-main .toggle, .mini-toggle");
 
         subnodes.forEach(function(item) {
+            item.classList.remove("show");
+        });
+
+        details.forEach(function(item) {
             item.classList.remove("show");
         });
 
@@ -587,15 +580,16 @@ html_code = """
 
     function updateBodyState() {
         const openSubnodes = document.querySelectorAll(".subnodes.show").length;
+        const openDetails = document.querySelectorAll(".mini-detail.show").length;
 
         document.body.classList.remove("deep-expanded");
         document.body.classList.remove("very-deep");
 
-        if (openSubnodes >= 1) {
+        if (openSubnodes >= 1 || openDetails >= 2) {
             document.body.classList.add("deep-expanded");
         }
 
-        if (openSubnodes >= 3) {
+        if (openSubnodes >= 3 || openDetails >= 5) {
             document.body.classList.add("very-deep");
         }
 
@@ -606,7 +600,7 @@ html_code = """
         const viewport = document.querySelector(".map-viewport");
         const wrap = document.querySelector(".scale-wrap");
 
-        const canvasWidth = 1180;
+        const canvasWidth = 1120;
         const canvasHeight = 650;
 
         const scaleX = viewport.clientWidth / canvasWidth;
@@ -614,10 +608,14 @@ html_code = """
 
         let scale = Math.min(scaleX, scaleY, 1);
 
-        const openSubnodes = document.querySelectorAll(".subnodes.show").length;
+        const openDetails = document.querySelectorAll(".mini-detail.show").length;
 
-        if (openSubnodes >= 3) {
+        if (openDetails >= 4) {
             scale = scale * 0.96;
+        }
+
+        if (openDetails >= 7) {
+            scale = scale * 0.92;
         }
 
         wrap.style.setProperty("--fit-scale", scale);
@@ -636,8 +634,12 @@ st.markdown(
     """
     <style>
         .block-container {
-            padding-top: 0.8rem;
-            padding-bottom: 0.8rem;
+            padding-top: 0rem;
+            padding-bottom: 0rem;
+        }
+
+        header {
+            visibility: hidden;
         }
 
         iframe {
@@ -648,4 +650,4 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-components.html(html_code, height=870, scrolling=False)
+components.html(html_code, height=770, scrolling=False)
