@@ -17,9 +17,12 @@ html_code = """
         box-sizing: border-box;
     }
 
-    body {
+    html, body {
         margin: 0;
-        padding: 18px;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
         font-family: Arial, Helvetica, sans-serif;
         background: #FFFFFF;
         color: #000000;
@@ -27,160 +30,163 @@ html_code = """
 
     .page {
         width: 100%;
-        min-height: 900px;
+        height: 850px;
         background: #FFFFFF;
-        border-radius: 24px;
-        padding: 26px;
         border: 1px solid #DCEFF8;
-        overflow-x: auto;
+        border-radius: 22px;
+        padding: 18px;
+        overflow: hidden;
     }
 
     .title {
         text-align: center;
-        font-size: 30px;
+        font-size: 28px;
         font-weight: 800;
         color: #000000;
-        margin-bottom: 8px;
+        margin-bottom: 5px;
     }
 
     .subtitle {
         text-align: center;
-        font-size: 15px;
+        font-size: 14px;
         color: #333333;
-        margin-bottom: 35px;
+        margin-bottom: 8px;
     }
 
-    .spider-body {
-        display: grid;
-        grid-template-columns: 1fr 340px 1fr;
-        align-items: center;
-        gap: 22px;
+    .map-viewport {
+        position: relative;
         width: 100%;
-        min-width: 1100px;
+        height: 735px;
+        overflow: hidden;
     }
 
-    .center-zone {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .side {
-        display: none;
-        flex-direction: column;
-        gap: 42px;
-    }
-
-    .side.show {
-        display: flex;
-        animation: expandir 0.45s ease forwards;
-    }
-
-    .left-side {
-        align-items: flex-end;
-    }
-
-    .right-side {
-        align-items: flex-start;
-    }
-
-    .branch-row {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        width: 100%;
-    }
-
-    .left-row {
-        justify-content: flex-end;
-    }
-
-    .right-row {
-        justify-content: flex-start;
+    .scale-wrap {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 1180px;
+        height: 650px;
+        transform: translate(-50%, -50%) scale(var(--fit-scale, 1));
+        transform-origin: center center;
     }
 
     .node {
         background: #FFFFFF;
         border: 2px solid #01ACF1;
         color: #000000;
-        border-radius: 18px;
-        padding: 15px 17px;
-        box-shadow: 0 8px 20px rgba(1, 172, 241, 0.12);
-        transition: all 0.35s ease;
+        border-radius: 17px;
+        padding: 13px 14px;
+        box-shadow: 0 7px 18px rgba(1, 172, 241, 0.12);
+        transition: all 0.30s ease;
     }
 
     .node:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 12px 25px rgba(1, 172, 241, 0.20);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 22px rgba(1, 172, 241, 0.20);
     }
 
     .level-0 {
-        width: 335px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 285px;
+        transform: translate(-50%, -50%);
         text-align: center;
-        font-size: 19px;
+        font-size: 17px;
         font-weight: 800;
+        z-index: 10;
+    }
+
+    .level-0:hover {
+        transform: translate(-50%, -52%);
     }
 
     .level-1 {
-        width: 255px;
-        min-height: 112px;
-        font-size: 15px;
+        width: 210px;
+        min-height: 98px;
+        font-size: 14px;
     }
 
     .level-2 {
-        width: 230px;
-        font-size: 13.2px;
-        border-width: 1.7px;
-        padding: 12px 13px;
+        width: 185px;
+        font-size: 12.4px;
+        border-width: 1.6px;
+        padding: 10px 11px;
     }
 
-    body.is-expanded .level-0 {
-        width: 305px;
-        font-size: 17px;
-        padding: 13px 15px;
+    body.deep-expanded .level-0 {
+        width: 260px;
+        font-size: 15.5px;
+        padding: 11px 12px;
     }
 
     body.deep-expanded .level-1 {
-        width: 235px;
-        font-size: 13.5px;
-        padding: 12px 13px;
+        width: 195px;
+        font-size: 13px;
+        padding: 11px 12px;
     }
 
     body.deep-expanded .level-2 {
-        width: 215px;
-        font-size: 12.5px;
+        width: 170px;
+        font-size: 11.7px;
+        padding: 9px 10px;
+    }
+
+    body.very-deep .level-0 {
+        width: 245px;
+        font-size: 14.5px;
+    }
+
+    body.very-deep .level-1 {
+        width: 180px;
+        font-size: 12px;
+    }
+
+    body.very-deep .level-2 {
+        width: 158px;
+        font-size: 11px;
     }
 
     .node-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 10px;
+        gap: 8px;
     }
 
     .node-title {
         font-weight: 800;
-        line-height: 1.25;
+        line-height: 1.20;
     }
 
     .node-text {
-        margin-top: 8px;
-        font-size: 13px;
-        line-height: 1.38;
+        margin-top: 7px;
+        font-size: 12.5px;
+        line-height: 1.32;
         color: #222222;
         font-weight: 400;
     }
 
+    body.deep-expanded .node-text {
+        font-size: 11.4px;
+        line-height: 1.28;
+    }
+
+    body.very-deep .node-text {
+        font-size: 10.8px;
+        line-height: 1.25;
+    }
+
     .toggle {
-        min-width: 30px;
-        height: 30px;
+        min-width: 27px;
+        height: 27px;
         border-radius: 50%;
         border: 2px solid #01ACF1;
         background: #FFFFFF;
         color: #000000;
         cursor: pointer;
         font-weight: 900;
-        font-size: 18px;
+        font-size: 17px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -189,7 +195,33 @@ html_code = """
 
     .toggle:hover {
         background: #EAF8FE;
-        transform: scale(1.10);
+        transform: scale(1.08);
+    }
+
+    .tag {
+        display: inline-block;
+        background: #F0FAFE;
+        border: 1px solid #BDEBFC;
+        border-radius: 50px;
+        padding: 3px 8px;
+        margin-top: 7px;
+        font-size: 11px;
+        font-weight: 700;
+        color: #000000;
+    }
+
+    .formula {
+        margin-top: 6px;
+        padding: 6px 7px;
+        background: #F8FCFE;
+        border-left: 3px solid #01ACF1;
+        font-size: 11.5px;
+        border-radius: 7px;
+    }
+
+    body.very-deep .formula {
+        font-size: 10.5px;
+        padding: 5px 6px;
     }
 
     .line {
@@ -201,34 +233,82 @@ html_code = """
     }
 
     .line-main {
-        width: 65px;
+        width: 42px;
     }
 
-    .line-small {
-        width: 32px;
+    .line-sub {
+        width: 24px;
         opacity: 0.60;
+        display: none;
     }
 
-    .subnodes {
+    .branch.sub-open .line-sub {
+        display: block;
+    }
+
+    body.very-deep .line-main {
+        width: 30px;
+    }
+
+    body.very-deep .line-sub {
+        width: 18px;
+    }
+
+    .branch {
+        position: absolute;
         display: none;
-        flex-direction: column;
-        gap: 10px;
+        align-items: center;
+        gap: 8px;
         opacity: 0;
         transform: scale(0.92);
-        transition: all 0.35s ease;
     }
 
-    .subnodes.show {
+    .branch.show {
         display: flex;
         opacity: 1;
         transform: scale(1);
         animation: expandir 0.35s ease forwards;
     }
 
+    .rama1 {
+        left: 18px;
+        top: 30px;
+    }
+
+    .rama2 {
+        left: 18px;
+        top: 420px;
+    }
+
+    .rama3 {
+        left: 730px;
+        top: 55px;
+    }
+
+    .rama4 {
+        left: 730px;
+        top: 405px;
+    }
+
+    .subnodes {
+        display: none;
+        flex-direction: column;
+        gap: 8px;
+        opacity: 0;
+        transform: scale(0.90);
+    }
+
+    .subnodes.show {
+        display: flex;
+        opacity: 1;
+        transform: scale(1);
+        animation: expandir 0.32s ease forwards;
+    }
+
     @keyframes expandir {
         from {
             opacity: 0;
-            transform: scale(0.90);
+            transform: scale(0.88);
         }
         to {
             opacity: 1;
@@ -236,38 +316,11 @@ html_code = """
         }
     }
 
-    .tag {
-        display: inline-block;
-        background: #F0FAFE;
-        border: 1px solid #BDEBFC;
-        border-radius: 50px;
-        padding: 4px 9px;
-        margin-top: 8px;
-        font-size: 12px;
-        font-weight: 700;
-        color: #000000;
-    }
-
-    .formula {
-        margin-top: 8px;
-        padding: 7px 9px;
-        background: #F8FCFE;
-        border-left: 3px solid #01ACF1;
-        font-size: 12.3px;
-        border-radius: 8px;
-    }
-
     .footer {
-        margin-top: 38px;
         text-align: center;
-        font-size: 12px;
+        font-size: 11px;
         color: #444444;
-    }
-
-    @media (max-width: 1200px) {
-        .page {
-            overflow-x: auto;
-        }
+        margin-top: 2px;
     }
 </style>
 </head>
@@ -281,101 +334,10 @@ html_code = """
         Ecuaciones Diferenciales Ordinarias aplicadas al mantenimiento industrial
     </div>
 
-    <div class="spider-body">
+    <div class="map-viewport">
+        <div class="scale-wrap">
 
-        <div id="leftBranches" class="side left-side">
-
-            <div class="branch-row left-row">
-
-                <div id="rama1" class="subnodes">
-                    <div class="node level-2">
-                        <div class="node-title">Definición</div>
-                        <div class="node-text">
-                            Relaciona una función desconocida con sus derivadas. Sirve para representar cambios de una variable respecto al tiempo.
-                        </div>
-                    </div>
-
-                    <div class="node level-2">
-                        <div class="node-title">Orden</div>
-                        <div class="node-text">
-                            Se define por la derivada más alta. Si aparece dy/dt es de primer orden; si aparece d²y/dt² es de segundo orden.
-                        </div>
-                    </div>
-
-                    <div class="node level-2">
-                        <div class="node-title">Linealidad</div>
-                        <div class="node-text">
-                            Es lineal cuando la variable dependiente y sus derivadas están al exponente 1 y no se multiplican entre sí.
-                        </div>
-                    </div>
-
-                    <div class="node level-2">
-                        <div class="node-title">Tipo: EDO vs EDP</div>
-                        <div class="node-text">
-                            La EDO depende de una sola variable independiente. La EDP depende de dos o más variables independientes.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="line line-small"></div>
-
-                <div class="node level-1">
-                    <div class="node-header">
-                        <span class="node-title">1. Fundamentos y Clasificación</span>
-                        <button class="toggle" onclick="toggleSection('rama1', this)">+</button>
-                    </div>
-                    <div class="node-text">
-                        Permite identificar la estructura básica de una ecuación diferencial.
-                    </div>
-                    <span class="tag">Base teórica</span>
-                </div>
-
-                <div class="line line-main"></div>
-            </div>
-
-            <div class="branch-row left-row">
-
-                <div id="rama2" class="subnodes">
-                    <div class="node level-2">
-                        <div class="node-title">Variables Separables</div>
-                        <div class="node-text">
-                            Método que separa las variables en lados distintos de la ecuación para luego integrar.
-                        </div>
-                        <div class="formula">
-                            dy/dx = f(x)g(y)
-                        </div>
-                    </div>
-
-                    <div class="node level-2">
-                        <div class="node-title">Factor Integrante</div>
-                        <div class="node-text">
-                            Se aplica a EDOs lineales de primer orden para convertir la ecuación en una derivada de producto.
-                        </div>
-                        <div class="formula">
-                            y' + p(x)y = q(x)
-                        </div>
-                    </div>
-                </div>
-
-                <div class="line line-small"></div>
-
-                <div class="node level-1">
-                    <div class="node-header">
-                        <span class="node-title">2. Herramientas de Resolución</span>
-                        <button class="toggle" onclick="toggleSection('rama2', this)">+</button>
-                    </div>
-                    <div class="node-text">
-                        Son métodos usados para resolver ecuaciones diferenciales de primer orden.
-                    </div>
-                    <span class="tag">Métodos</span>
-                </div>
-
-                <div class="line line-main"></div>
-            </div>
-
-        </div>
-
-        <div class="center-zone">
+            <!-- NÚCLEO CENTRAL -->
             <div class="node level-0">
                 <div class="node-header">
                     <span class="node-title">
@@ -385,15 +347,96 @@ html_code = """
                 </div>
 
                 <div class="node-text">
-                    Modelan el cambio de variables como temperatura, presión, nivel o velocidad. Ayudan a diagnosticar y predecir el comportamiento de equipos.
+                    Modelan cambios de variables como temperatura, presión, nivel o velocidad. Ayudan al diagnóstico y predicción del estado de equipos.
                 </div>
             </div>
-        </div>
 
-        <div id="rightBranches" class="side right-side">
+            <!-- RAMA 1 IZQUIERDA SUPERIOR -->
+            <div class="branch rama1 left-branch">
+                <div id="rama1" class="subnodes">
+                    <div class="node level-2">
+                        <div class="node-title">Definición</div>
+                        <div class="node-text">
+                            Relación entre una función desconocida y sus derivadas.
+                        </div>
+                    </div>
 
-            <div class="branch-row right-row">
+                    <div class="node level-2">
+                        <div class="node-title">Orden</div>
+                        <div class="node-text">
+                            Lo define la derivada más alta: dy/dt es primer orden, d²y/dt² es segundo orden.
+                        </div>
+                    </div>
 
+                    <div class="node level-2">
+                        <div class="node-title">Linealidad</div>
+                        <div class="node-text">
+                            Es lineal si la variable dependiente y sus derivadas están al exponente 1.
+                        </div>
+                    </div>
+
+                    <div class="node level-2">
+                        <div class="node-title">Tipo</div>
+                        <div class="node-text">
+                            EDO: una variable independiente. EDP: dos o más variables independientes.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="line line-sub"></div>
+
+                <div class="node level-1">
+                    <div class="node-header">
+                        <span class="node-title">1. Fundamentos y Clasificación</span>
+                        <button class="toggle" onclick="toggleSection('rama1', this)">+</button>
+                    </div>
+                    <div class="node-text">
+                        Identifica la estructura básica de una ecuación diferencial.
+                    </div>
+                    <span class="tag">Base teórica</span>
+                </div>
+
+                <div class="line line-main"></div>
+            </div>
+
+            <!-- RAMA 2 IZQUIERDA INFERIOR -->
+            <div class="branch rama2 left-branch">
+                <div id="rama2" class="subnodes">
+                    <div class="node level-2">
+                        <div class="node-title">Variables Separables</div>
+                        <div class="node-text">
+                            Se separan las variables en lados distintos y luego se integran.
+                        </div>
+                        <div class="formula">dy/dx = f(x)g(y)</div>
+                    </div>
+
+                    <div class="node level-2">
+                        <div class="node-title">Factor Integrante</div>
+                        <div class="node-text">
+                            Convierte una EDO lineal en una derivada de producto.
+                        </div>
+                        <div class="formula">y' + p(x)y = q(x)</div>
+                    </div>
+                </div>
+
+                <div class="line line-sub"></div>
+
+                <div class="node level-1">
+                    <div class="node-header">
+                        <span class="node-title">2. Herramientas de Resolución</span>
+                        <button class="toggle" onclick="toggleSection('rama2', this)">+</button>
+                    </div>
+                    <div class="node-text">
+                        Métodos básicos para resolver EDOs de primer orden.
+                    </div>
+                    <span class="tag">Métodos</span>
+                </div>
+
+                <div class="line line-main"></div>
+            </div>
+
+            <!-- RAMA 3 DERECHA SUPERIOR -->
+            <div class="branch rama3 right-branch">
                 <div class="line line-main"></div>
 
                 <div class="node level-1">
@@ -402,45 +445,41 @@ html_code = """
                         <button class="toggle" onclick="toggleSection('rama3', this)">+</button>
                     </div>
                     <div class="node-text">
-                        Aplican las EDO al análisis de procesos reales en planta.
+                        Aplican las EDO al análisis de procesos de planta.
                     </div>
                     <span class="tag">Aplicación</span>
                 </div>
 
-                <div class="line line-small"></div>
+                <div class="line line-sub"></div>
 
                 <div id="rama3" class="subnodes">
                     <div class="node level-2">
-                        <div class="node-title">Termicidad: Ley de Newton</div>
+                        <div class="node-title">Termicidad</div>
                         <div class="node-text">
-                            Describe el enfriamiento o calentamiento según la diferencia entre la temperatura del cuerpo y el ambiente.
+                            Ley de Newton: enfriamiento de motores y rodamientos.
                         </div>
-                        <div class="formula">
-                            dT/dt = -k(T - Ta)
-                        </div>
+                        <div class="formula">dT/dt = -k(T - Ta)</div>
                     </div>
 
                     <div class="node level-2">
-                        <div class="node-title">Fluidos: Ley de Torricelli</div>
+                        <div class="node-title">Fluidos</div>
                         <div class="node-text">
-                            Modela la velocidad de salida de un fluido y el vaciado de tanques según la altura del líquido.
+                            Ley de Torricelli: vaciado de tanques según la altura del fluido.
                         </div>
-                        <div class="formula">
-                            v = √(2gh)
-                        </div>
+                        <div class="formula">v = √(2gh)</div>
                     </div>
 
                     <div class="node level-2">
-                        <div class="node-title">Sistemas: Actuadores Hidráulicos</div>
+                        <div class="node-title">Sistemas</div>
                         <div class="node-text">
-                            Representa la respuesta de posición, presión o velocidad de un actuador frente a una entrada del sistema.
+                            Dinámica de actuadores hidráulicos: presión, velocidad y posición.
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="branch-row right-row">
-
+            <!-- RAMA 4 DERECHA INFERIOR -->
+            <div class="branch rama4 right-branch">
                 <div class="line line-main"></div>
 
                 <div class="node level-1">
@@ -449,39 +488,38 @@ html_code = """
                         <button class="toggle" onclick="toggleSection('rama4', this)">+</button>
                     </div>
                     <div class="node-text">
-                        Convierte los modelos matemáticos en criterios de diagnóstico y prevención.
+                        Usa modelos matemáticos para diagnosticar y prevenir fallas.
                     </div>
                     <span class="tag">Diagnóstico</span>
                 </div>
 
-                <div class="line line-small"></div>
+                <div class="line line-sub"></div>
 
                 <div id="rama4" class="subnodes">
                     <div class="node level-2">
                         <div class="node-title">Constante de tiempo τ</div>
                         <div class="node-text">
-                            Indica la rapidez de respuesta del sistema. Si aumenta, puede señalar fricción, desgaste o degradación del fluido.
+                            Indica rapidez de respuesta. Si aumenta, puede existir fricción o degradación del fluido.
                         </div>
                     </div>
 
                     <div class="node level-2">
-                        <div class="node-title">Predicción de estados futuros</div>
+                        <div class="node-title">Predicción</div>
                         <div class="node-text">
-                            Permite estimar el comportamiento posterior de una variable, como temperatura, presión o nivel.
+                            Estima estados futuros de temperatura, presión, nivel o velocidad.
                         </div>
                     </div>
 
                     <div class="node level-2">
                         <div class="node-title">Decisiones preventivas</div>
                         <div class="node-text">
-                            Ayuda a definir cuándo inspeccionar, lubricar, ajustar o reemplazar antes de que ocurra una falla.
+                            Permite programar inspección, lubricación, ajuste o reemplazo.
                         </div>
                     </div>
                 </div>
             </div>
 
         </div>
-
     </div>
 
     <div class="footer">
@@ -492,18 +530,26 @@ html_code = """
 
 <script>
     function toggleMain(button) {
-        const left = document.getElementById("leftBranches");
-        const right = document.getElementById("rightBranches");
+        const branches = document.querySelectorAll(".branch");
 
-        if (left.classList.contains("show")) {
-            left.classList.remove("show");
-            right.classList.remove("show");
+        if (document.body.classList.contains("map-open")) {
+            document.body.classList.remove("map-open");
             button.innerText = "+";
-            cerrarRamas();
+
+            branches.forEach(function(branch) {
+                branch.classList.remove("show");
+                branch.classList.remove("sub-open");
+            });
+
+            cerrarSubramas();
+
         } else {
-            left.classList.add("show");
-            right.classList.add("show");
+            document.body.classList.add("map-open");
             button.innerText = "−";
+
+            branches.forEach(function(branch) {
+                branch.classList.add("show");
+            });
         }
 
         updateBodyState();
@@ -511,19 +557,22 @@ html_code = """
 
     function toggleSection(id, button) {
         const section = document.getElementById(id);
+        const branch = button.closest(".branch");
 
         if (section.classList.contains("show")) {
             section.classList.remove("show");
+            branch.classList.remove("sub-open");
             button.innerText = "+";
         } else {
             section.classList.add("show");
+            branch.classList.add("sub-open");
             button.innerText = "−";
         }
 
         updateBodyState();
     }
 
-    function cerrarRamas() {
+    function cerrarSubramas() {
         const subnodes = document.querySelectorAll(".subnodes");
         const buttons = document.querySelectorAll(".level-1 .toggle");
 
@@ -537,21 +586,46 @@ html_code = """
     }
 
     function updateBodyState() {
-        const left = document.getElementById("leftBranches");
-        const openSubnodes = document.querySelectorAll(".subnodes.show");
+        const openSubnodes = document.querySelectorAll(".subnodes.show").length;
 
-        if (left.classList.contains("show")) {
-            document.body.classList.add("is-expanded");
-        } else {
-            document.body.classList.remove("is-expanded");
-        }
+        document.body.classList.remove("deep-expanded");
+        document.body.classList.remove("very-deep");
 
-        if (openSubnodes.length > 0) {
+        if (openSubnodes >= 1) {
             document.body.classList.add("deep-expanded");
-        } else {
-            document.body.classList.remove("deep-expanded");
         }
+
+        if (openSubnodes >= 3) {
+            document.body.classList.add("very-deep");
+        }
+
+        fitCanvas();
     }
+
+    function fitCanvas() {
+        const viewport = document.querySelector(".map-viewport");
+        const wrap = document.querySelector(".scale-wrap");
+
+        const canvasWidth = 1180;
+        const canvasHeight = 650;
+
+        const scaleX = viewport.clientWidth / canvasWidth;
+        const scaleY = viewport.clientHeight / canvasHeight;
+
+        let scale = Math.min(scaleX, scaleY, 1);
+
+        const openSubnodes = document.querySelectorAll(".subnodes.show").length;
+
+        if (openSubnodes >= 3) {
+            scale = scale * 0.96;
+        }
+
+        wrap.style.setProperty("--fit-scale", scale);
+    }
+
+    window.addEventListener("resize", fitCanvas);
+    window.addEventListener("load", fitCanvas);
+    fitCanvas();
 </script>
 
 </body>
@@ -562,12 +636,16 @@ st.markdown(
     """
     <style>
         .block-container {
-            padding-top: 1rem;
-            padding-bottom: 1rem;
+            padding-top: 0.8rem;
+            padding-bottom: 0.8rem;
+        }
+
+        iframe {
+            overflow: hidden !important;
         }
     </style>
     """,
     unsafe_allow_html=True
 )
 
-components.html(html_code, height=980, scrolling=True)
+components.html(html_code, height=870, scrolling=False)
